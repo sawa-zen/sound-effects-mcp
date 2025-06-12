@@ -21,27 +21,11 @@ npx sound-effects-mcp
 npx sound-effects-mcp@latest
 ```
 
-### 開発用・ローカルインストール
-
-```bash
-# プロジェクトをクローンまたはダウンロード
-git clone <repository-url>
-cd sound-effects-mcp
-
-# 依存関係をインストール
-npm install
-
-# ビルド
-npm run build
-```
-
 ## 使用方法
 
 ### Claude Desktopとの連携
 
 Claude Desktopの設定ファイル（`~/Library/Application Support/Claude/claude_desktop_config.json`）に以下を追加：
-
-#### npx経由での設定（推奨）
 
 ```json
 {
@@ -53,7 +37,6 @@ Claude Desktopの設定ファイル（`~/Library/Application Support/Claude/clau
   }
 }
 ```
-
 
 ### 利用可能なツール
 
@@ -82,43 +65,11 @@ play-sound-effect を使って、complete音でタスク完了を知らせてく
 list-sound-effects で効果音一覧を見せてください
 ```
 
-
-## 開発
-
-```bash
-# 開発モード（ファイル監視）
-npm run dev
-
-# ビルド
-npm run build
-
-# 実行
-npm start
-
-# リント
-npm run lint
-
-# 音声再生のテスト
-npx tsx test-internal.ts
-```
-
-### テスト内容
-
-`test-internal.ts`では以下のテストを実行します：
-
-- 効果音リストの取得テスト
-- 各効果音の再生テスト（complete音、newtype音、error音）
-- 音声ファイルのダウンロードと再生処理の動作確認
-
 ## 対応プラットフォーム
 
 - **macOS**: 音声ファイル（MP3）を`afplay`コマンドで再生
 
 音声ファイルは初回実行時に自動的にダウンロードされ、一時ディレクトリに保存されます。
-
-## ライセンス
-
-MIT License
 
 ## 使用用途
 
@@ -129,3 +80,11 @@ MIT License
 - **エラー音**: エラー発生時、警告時、注意が必要な場面
 
 作業効率向上と楽しさを両立できるツールです。
+
+## 開発者向け情報
+
+開発・コントリビューションについては [CONTRIBUTING.md](./CONTRIBUTING.md) をご覧ください。
+
+## ライセンス
+
+MIT License
