@@ -93,7 +93,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         const soundEffectList = getSoundEffectList();
         const selectedSound = soundEffectList.find(s => s.name === soundEffect);
         const soundName = selectedSound?.description || soundEffect;
-        
+
         return {
           content: [
             {
@@ -118,7 +118,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     case 'list-sound-effects': {
       const soundEffects = getSoundEffectList();
       const list = soundEffects.map(effect => `• **${effect.name}**: ${effect.description}`).join('\n');
-      
+
       return {
         content: [
           {

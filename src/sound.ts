@@ -36,7 +36,7 @@ async function downloadFile(url: string, filepath: string): Promise<void> {
   });
 }
 
-export type SoundEffect = 
+export type SoundEffect =
   | 'complete'     // 完了音（done.mp3）
   | 'newtype'      // ニュータイプ音（flexatone.mp3）
   | 'error';       // エラー音（error.mp3）

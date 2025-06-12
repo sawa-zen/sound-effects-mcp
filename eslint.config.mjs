@@ -32,6 +32,11 @@ export default [
       '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/explicit-function-return-type': 'warn',
       '@typescript-eslint/no-explicit-any': 'warn',
+      'indent': ['error', 2, { 'SwitchCase': 1 }],
+      '@typescript-eslint/indent': 'off', // TypeScript用のindentルールは無効化
+      'no-trailing-spaces': 'error',
+      'no-multiple-empty-lines': ['error', { 'max': 2, 'maxEOF': 1 }],
+      'eol-last': 'error',
     },
   },
   {
