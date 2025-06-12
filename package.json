@@ -1,0 +1,39 @@
+{
+  "name": "sound-effects-mcp",
+  "version": "1.0.0",
+  "description": "MCP server that plays various sound effects for different situations",
+  "main": "dist/index.js",
+  "type": "module",
+  "bin": {
+    "sound-effects-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsc --watch",
+    "lint": "eslint src/**/*.ts",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "sound-effects",
+    "audio",
+    "notification",
+    "tool"
+  ],
+  "author": "Takayoshi Sawada",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
