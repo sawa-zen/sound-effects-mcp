@@ -54,18 +54,6 @@ Claude Desktopの設定ファイル（`~/Library/Application Support/Claude/clau
 }
 ```
 
-#### ローカルビルド版での設定
-
-```json
-{
-  "mcpServers": {
-    "sound-effects-mcp": {
-      "command": "node",
-      "args": ["/path/to/sound-effects-mcp/dist/index.js"]
-    }
-  }
-}
-```
 
 ### 利用可能なツール
 
