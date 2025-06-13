@@ -136,14 +136,19 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 });
 
 async function main(): Promise<void> {
-  const transport = new StdioServerTransport();
-  await server.connect(transport);
-  console.error('サウンドエフェクトMCPサーバーが起動しました 🚀');
+  console.error('メイン関数開始...');
+  try {
+    const transport = new StdioServerTransport();
+    console.error('トランスポート作成完了');
+    await server.connect(transport);
+    console.error('サウンドエフェクトMCPサーバーが起動しました 🚀');
+  } catch (error) {
+    console.error('メイン関数でエラー:', error);
+    throw error;
+  }
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
-  main().catch((error) => {
-    console.error('サーバーエラー:', error);
-    process.exit(1);
-  });
-}
+main().catch((error) => {
+  console.error('サーバーエラー:', error);
+  process.exit(1);
+});

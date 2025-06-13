@@ -1,6 +1,6 @@
 {
   "name": "sound-effects-mcp",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "MCP server that plays various sound effects for different situations",
   "main": "dist/index.js",
   "type": "module",
