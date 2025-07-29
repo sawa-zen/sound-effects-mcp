@@ -19,15 +19,16 @@ Claude CodeでプロジェクトレベルでこのMCPを追加：
 claude mcp add sound-effects-mcp -s project -- npx -y sound-effects-mcp
 ```
 
-**注意**: 環境によっては`npx`が見つからない場合があります。その場合は`which npx`でフルパスを確認して使用してください：
-
-```bash
-# npxのフルパスを確認
-which npx
-
-# フルパスを使用（例）
-claude mcp add sound-effects-mcp -s project -- /usr/local/bin/npx -y sound-effects-mcp
-```
+> [!WARNING]
+> 環境によっては`npx`が見つからない場合があります。その場合は`which npx`でフルパスを確認して使用してください：
+>
+> ```bash
+> # npxのフルパスを確認
+> which npx
+>
+> # フルパスを使用（例）
+> claude mcp add sound-effects-mcp -s project -- /usr/local/bin/npx -y sound-effects-mcp
+> ```
 
 ### Claude Desktopとの連携
 
