@@ -1,42 +1,19 @@
 import { exec } from 'child_process';
 import { promisify } from 'util';
-import { promises as fs } from 'fs';
-import { createWriteStream } from 'fs';
 import { join } from 'path';
-import { tmpdir } from 'os';
-import { Readable } from 'stream';
-import { pipeline } from 'stream/promises';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 const execAsync = promisify(exec);
 
-const FLEXATONE_URL = 'https://pub-c53c7dd0db3e4508929904a3e72f5438.r2.dev/flexatone.wav';
-const DONE_URL = 'https://pub-c53c7dd0db3e4508929904a3e72f5438.r2.dev/done.wav';
-const ERROR_URL = 'https://pub-c53c7dd0db3e4508929904a3e72f5438.r2.dev/error.wav';
-const TEMP_DIR = tmpdir();
-const FLEXATONE_FILE = join(TEMP_DIR, 'flexatone.wav');
-const DONE_FILE = join(TEMP_DIR, 'done.wav');
-const ERROR_FILE = join(TEMP_DIR, 'error.wav');
+// パッケージのルートディレクトリのassetsフォルダを指す
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const ASSETS_DIR = join(__dirname, '..', 'assets');
 
-async function downloadFile(url: string, filepath: string): Promise<void> {
-  try {
-    // ファイルが既に存在する場合はダウンロードをスキップ
-    await fs.access(filepath);
-    return;
-  } catch {
-    // ファイルが存在しない場合はダウンロード
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    if (!response.body) {
-      throw new Error('Response body is null');
-    }
-
-    const fileStream = createWriteStream(filepath);
-    await pipeline(Readable.fromWeb(response.body), fileStream);
-  }
-}
+const FLEXATONE_FILE = join(ASSETS_DIR, 'flexatone.wav');
+const DONE_FILE = join(ASSETS_DIR, 'done.wav');
+const ERROR_FILE = join(ASSETS_DIR, 'error.wav');
 
 export type SoundEffect =
   | 'complete'     // 完了音（done.wav）
@@ -56,24 +33,18 @@ const SOUND_CONFIGS: Record<SoundEffect, SoundConfig> = {
 async function playSystemSound(soundEffect: SoundEffect): Promise<void> {
   if (process.platform === 'darwin') {
     if (soundEffect === 'newtype') {
-      await downloadFile(FLEXATONE_URL, FLEXATONE_FILE);
       await execAsync(`afplay "${FLEXATONE_FILE}"`);
     } else if (soundEffect === 'complete') {
-      await downloadFile(DONE_URL, DONE_FILE);
       await execAsync(`afplay "${DONE_FILE}"`);
     } else if (soundEffect === 'error') {
-      await downloadFile(ERROR_URL, ERROR_FILE);
       await execAsync(`afplay "${ERROR_FILE}"`);
     }
   } else if (process.platform === 'win32') {
     if (soundEffect === 'newtype') {
-      await downloadFile(FLEXATONE_URL, FLEXATONE_FILE);
       await execAsync(`powershell -c "(New-Object Media.SoundPlayer '${FLEXATONE_FILE}').PlaySync()"`);
     } else if (soundEffect === 'complete') {
-      await downloadFile(DONE_URL, DONE_FILE);
       await execAsync(`powershell -c "(New-Object Media.SoundPlayer '${DONE_FILE}').PlaySync()"`);
     } else if (soundEffect === 'error') {
-      await downloadFile(ERROR_URL, ERROR_FILE);
       await execAsync(`powershell -c "(New-Object Media.SoundPlayer '${ERROR_FILE}').PlaySync()"`);
     }
   }
