@@ -4,7 +4,8 @@ import { promises as fs } from 'fs';
 import { createWriteStream } from 'fs';
 import { join } from 'path';
 import { tmpdir } from 'os';
-import https from 'https';
+import { Readable } from 'stream';
+import { pipeline } from 'stream/promises';
 
 const execAsync = promisify(exec);
 
@@ -17,23 +18,24 @@ const DONE_FILE = join(TEMP_DIR, 'done.wav');
 const ERROR_FILE = join(TEMP_DIR, 'error.wav');
 
 async function downloadFile(url: string, filepath: string): Promise<void> {
-  return new Promise((resolve, reject) => {
+  try {
     // ファイルが既に存在する場合はダウンロードをスキップ
-    fs.access(filepath).then(() => {
-      resolve();
-    }).catch(() => {
-      const file = createWriteStream(filepath);
-      https.get(url, (response) => {
-        response.pipe(file);
-        file.on('finish', () => {
-          file.close();
-          resolve();
-        });
-      }).on('error', (err: Error) => {
-        reject(err);
-      });
-    });
-  });
+    await fs.access(filepath);
+    return;
+  } catch {
+    // ファイルが存在しない場合はダウンロード
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    if (!response.body) {
+      throw new Error('Response body is null');
+    }
+
+    const fileStream = createWriteStream(filepath);
+    await pipeline(Readable.fromWeb(response.body), fileStream);
+  }
 }
 
 export type SoundEffect =

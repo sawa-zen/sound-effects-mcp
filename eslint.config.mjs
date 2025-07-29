@@ -22,6 +22,7 @@ export default [
         require: 'readonly',
         exports: 'readonly',
         global: 'readonly',
+        fetch: 'readonly',
       },
     },
     plugins: {
