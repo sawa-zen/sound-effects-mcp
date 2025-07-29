@@ -9,19 +9,15 @@
 - 🛠️ シンプルなMCPツール
 - 🎯 作業効率とエンターテイメント性の両立
 
-## インストール方法
+## 使用方法
 
-### npx経由での使用（推奨）
+### Claude Code経由での使用
+
+Claude CodeでプロジェクトレベルでこのMCPを追加：
 
 ```bash
-# インストール不要、npx経由で直接使用
-npx sound-effects-mcp
-
-# 最新版を強制取得
-npx sound-effects-mcp@latest
+claude mcp add sound-effects-mcp -s project -- npx -y sound-effects-mcp
 ```
-
-## 使用方法
 
 ### Claude Desktopとの連携
 
@@ -63,6 +59,17 @@ play-sound-effect を使って、complete音でタスク完了を知らせてく
 **使用例:**
 ```
 list-sound-effects で効果音一覧を見せてください
+```
+
+## 便利なプロンプト設定
+
+Claude CodeのCLAUDE.mdファイルに以下を追加すると、自動的に適切なタイミングで効果音が再生されます：
+
+```markdown
+# サウンドエフェクト
+- タスクやプロジェクトが完了した時は `play-sound-effect` の `complete` 音を再生してください
+- 問題の原因が特定できた時は `play-sound-effect` の `newtype` 音を再生してください
+- 重要な気づきやひらめきがあった時は `play-sound-effect` の `newtype` 音を再生してください
 ```
 
 ## 対応プラットフォーム
